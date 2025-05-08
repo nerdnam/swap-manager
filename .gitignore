@@ -1,0 +1,180 @@
+# .gitignore
+
+# Python #
+###########
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# Usually these files are written by a python script from a template
+# before PyInstaller builds డి exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype
+.pytype/
+
+# IDEs and editors #
+####################
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (PyCharm, IntelliJ, etc.)
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# Eclipse
+.project
+.pydevproject
+.settings/
+
+# macOS #
+###########
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.Spotlight-V100
+.Trashes
+
+# Windows #
+###########
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Logan files
+*.log
+
+# Docker #
+##########
+# Local Docker build cache
+.dockerignore # .dockerignore 파일 자체는 커밋하는 것이 일반적입니다.
+              # 이 줄은 다른 프로젝트에서 .dockerignore를 생성할 때 참고용으로 남겨둘 수 있습니다.
+              # 현재 프로젝트에서는 이 줄을 주석 처리하거나 삭제해도 됩니다.
+
+# docker-compose override files (if used locally and not meant for sharing)
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Other #
+#########
+# Local configuration files not meant to be versioned
+local_settings.py
+config.local.ini
+*.local
+
+# Temporary files
+*.tmp
+*~
+*.swp # Vim swap files
+
+# Swap files (if any other than the managed ones by the app)
+# The application manages swap files in SWAP_WORK_DIR, which is typically a mounted volume
+# and not part of the git repository.
+# However, if swap files could be accidentally created in the repo, you might add:
+# *.gb # If this pattern is too broad and matches other desired files, be more specific.
+# swapfile* # Example, adjust as needed
+
+# Application-specific logs (if not handled by volume mounts for development)
+# logs/ # If you have a local logs/ directory for dev that shouldn't be committed
+# *.log # This is already covered in Python section, but can be re-emphasized if needed
