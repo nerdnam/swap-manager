@@ -1,0 +1,81 @@
+<!-- templates/status.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap Manager 상태</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="any" href="{{ url_for('static', filename='favicon.png') }}">
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Tailwind CSS는 CDN으로 유지하거나, 로컬로 관리하려면 별도 설정 필요 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts 링크 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="Swap Manager Icon">
+            Swap Manager 상태
+        </h1>
+        <!-- 여기에 모든 상태 항목들이 표시되어야 합니다. -->
+        <!-- 예시: 스왑 상태, Cgroup 상태, PID, 메모리 제한 등 -->
+        <div class="status-item">
+            <span class="status-label">스왑 상태:</span>
+            <span class="status-value {{ current_status.swap_status | lower | replace(' ', '-') | replace('(', '') | replace(')', '') }}">{{ current_status.swap_status }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">Cgroup 상태:</span>
+            <span class="status-value {{ current_status.cgroup_status | lower | replace(' ', '-') | replace('(', '') | replace(')', '') }}">{{ current_status.cgroup_status }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">대상 PID:</span>
+            <span class="status-value">{{ current_status.pid if current_status.pid > 0 else 'N/A' }}</span>
+        </div>
+         <div class="status-item">
+            <span class="status-label">시스템 메모리 제한:</span>
+            <span class="status-value">{{ current_status.memory_limit_set }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">스왑 메모리 제한:</span>
+            <span class="status-value">{{ current_status.swap_limit_set }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">메모리 사용량:</span>
+            <span class="status-value">{{ current_status.memory_usage }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">스왑 사용량:</span>
+            <span class="status-value">{{ current_status.swap_usage }}</span>
+        </div>
+         <div class="status-item">
+            <span class="status-label">스왑 생성 시간:</span>
+            <span class="status-value">{{ current_status.swap_creation_time }}</span>
+        </div>
+         <div class="status-item">
+            <span class="status-label">vm.swappiness:</span>
+            <span class="status-value">{{ current_status.swappiness }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">마지막 업데이트:</span>
+            <span class="status-value">{{ current_status.last_updated }}</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">상태 메시지:</span>
+            <span class="status-value">{{ current_status.status_message }}</span>
+        </div>
+        {% if current_status.error %}
+            <div class="status-error-box">
+                <span class="status-label">오류:</span>
+                <span class="status-value error">{{ current_status.error }}</span>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="footer-link">
+        <a href="https://github.com/nerdnam/swap-manager" target="_blank" rel="noopener noreferrer">GitHub Swap-manager</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+/* static/style.css */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+h1 {
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h1 img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.status-item:last-child {
+    border-bottom: none;
+}
+.status-label {
+    font-weight: bold;
+    color: #555;
+}
+.status-value {
+    color: #007bff;
+}
+.status-value.active {
+    color: #28a745;
+}
+.status-value.configured, .status-value.configured-with-warnings {
+    color: #ffc107;
+}
+.status-value.failed, .status-value.error {
+    color: #dc3545;
+    font-weight: bold;
+}
+.status-value.unknown {
+    color: #6c757d;
+}
+.status-error-box {
+    color: #721c24;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    word-break: break-all;
+}
+.status-error-box .status-label {
+    color: #721c24;
+}
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+.footer-link a {
+    color: #0056b3;
+    text-decoration: none;
+}
+.footer-link a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,39 @@
+# .dockerignore
+
+# Git 관련 파일 및 디렉터리
+.git
+.gitignore
+
+# Python 가상 환경
+venv
+.venv
+env
+.env # 중요: 실제 .env 파일 (민감 정보 포함 가능성)은 이미지에 포함하지 않도록 주의
+     # 단, swap.env와 같이 설정용 파일은 COPY 지시어로 명시적으로 복사하므로 괜찮음
+
+# Python 캐시 파일
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 빌드 관련 디렉터리 (Python 프로젝트에서는 흔하지 않음)
+build/
+dist/
+*.egg-info/
+
+# 운영체제 특정 파일
+.DS_Store
+Thumbs.db
+
+# 로컬 테스트 또는 임시 파일
+*.log        # app.py에서 생성하는 로그 파일이 아닌, 로컬 개발 중 생성된 다른 로그 파일
+local_settings.py
+temp/
+
+# Docker 관련 파일 (Dockerfile 자체는 필요)
+docker-compose.yml # 이미지 빌드 시에는 필요 없음
+docker-compose.yaml # 이미지 빌드 시에는 필요 없음
+
+# 만약 로컬에만 있는 민감한 파일이 있다면 추가
+# secret_keys.txt

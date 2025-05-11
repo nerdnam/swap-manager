@@ -1,0 +1,19 @@
+services:
+  swap-manager:
+    image: docker.io/nerdnam/swap-manager:latest
+    container_name: swap-manager
+    privileged: true
+    pid: host
+    ports:
+      - "30067:5000"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/Data3/SwapWork:/mnt/SwapWork:rwx # 호스트 경로를 컨테이너 내부 경로로 마운트
+      - /mnt/Data3/swap-manager/log:/var/log/my_app:rwx
+      - /etc/localtime:/etc/localtime:ro
+    env_file: # 환경 변수를 .env 파일에서 로드합니다.
+      - /mnt/Data3/swap-manager/swap.env
+    environment: # DOCKER_HOST 환경 변수를 명시적으로 설정합니다.
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
