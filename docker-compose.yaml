@@ -1,6 +1,6 @@
 services:
   swap-manager:
-    image: docker.io/nerdnam/swap-manager:latest
+    image: ghcr.io/nerdnam/swap-manager:latest
     container_name: swap-manager
     privileged: true
     pid: host
