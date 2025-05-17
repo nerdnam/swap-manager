@@ -1,0 +1,64 @@
+# .github/workflows/swap-manager-ghcr.yml
+
+name: Publish Docker image to GHCR for Swap Manager
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'        # 예: v0.0.1, v0.1.0, v1.2.3 등 Git 태그 푸시 시에만 실행
+  pull_request:
+    branches: [ "main" ] # main 브랜치로의 Pull Request 시 (빌드만 하고 푸시는 안 함)
+  workflow_dispatch:      # 수동으로 실행 가능하도록 설정
+
+jobs:
+  build_and_push_to_ghcr:
+    runs-on: ubuntu-latest # 빌드를 실행할 가상 환경
+    permissions:
+      contents: read      # 리포지토리 코드를 읽기 위함
+      packages: write     # GHCR(패키지)에 쓰기 위함
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # 소스 코드 체크아웃
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3 # Docker Buildx 설정
+
+    - name: Log in to GitHub Container Registry
+      # Git 태그 푸시 시에만 로그인 (워크플로우 자체가 태그 푸시로만 트리거되지만 명시)
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }} # GitHub 사용자 이름 (워크플로우를 실행하는 액터)
+        password: ${{ secrets.GITHUB_TOKEN }} # 자동으로 생성되는 GITHUB_TOKEN 사용
+
+    # Docker 이미지에 사용할 메타데이터(태그, 레이블) 생성
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository }} # 예: ghcr.io/nerdnam/swap-manager
+        tags: |
+          # Git 태그 vMajor.Minor.Patch (예: v0.0.1)에 대해
+          # 1. Docker 태그 Major.Minor.Patch (예: 0.0.1) 생성
+          type=semver,pattern={{version}}
+          # 2. 이 Git 태그 푸시가 'latest' Docker 태그도 생성하도록 함
+          type=raw,value=latest,enable={{startsWith(github.ref, 'refs/tags/v')}}
+          # (선택 사항) Major.Minor 태그도 생성하려면 아래 주석 해제
+          # type=semver,pattern={{major}}.{{minor}}
+          # (선택 사항) 커밋 SHA 태그도 생성하려면 아래 주석 해제
+          # type=sha,format=short
+
+    - name: Build and push Docker image to GHCR
+      # Git 태그 푸시 시에만 이미지 빌드 및 푸시
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: docker/build-push-action@v5
+      with:
+        context: . # Dockerfile이 있는 경로 (swap-manager 프로젝트 루트)
+        file: ./Dockerfile # Dockerfile 경로 (swap-manager 프로젝트 내 Dockerfile)
+        push: true # if 조건이 true일 때 푸시 (즉, 태그 푸시 시)
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
